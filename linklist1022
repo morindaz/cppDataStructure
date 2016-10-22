@@ -1,0 +1,68 @@
+#include<iostream>
+using namespace std;
+class List{
+public:
+    struct Node{
+        int data;
+        Node *next;
+    };
+    Node *head;
+    List(){head=NULL;}
+    void insertList(int insdata){
+        Node *s=new Node;
+        Node *curr;
+        s->data = insdata;
+        if(head==NULL){
+                head = s;
+                s->next=NULL;
+        }else{
+            curr = head;
+            while(curr->next!=NULL){
+                curr = curr->next;
+            }
+            curr->next=s;
+            s->next=NULL;
+        }
+    }
+
+
+    void deleteList(int deldata){
+        Node *curr = head;
+        Node *preptr;
+        if(curr->data==deldata){
+            head = curr-> next;
+            delete curr;
+        }else{
+            while(curr->data!=deldata&&curr->next!=NULL){
+                preptr = curr;
+                curr=curr->next;
+            }
+            if(curr->data==deldata){
+                preptr->next=curr->next;
+                delete curr;
+            }
+        }
+    }
+
+    void printList(){
+        Node *curr=head;
+        while(curr!=NULL){
+            cout<<curr->data<<" ";
+            curr=curr->next;
+        }
+        cout<<endl;
+    }
+};
+
+
+int main(){
+    List A;
+    int num[]={1,2,2,3,5};
+    int length=sizeof(num)/sizeof(int);
+    for(int i = 0;i<length;i++)
+        A.insertList(num[i]);
+    A.insertList(772);
+    A.printList();
+    A.deleteList(3);
+    A.printList();
+}
