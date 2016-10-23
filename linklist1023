@@ -1,0 +1,64 @@
+#include<iostream> //20分钟一个链表
+using namespace std;
+class List{
+public:
+    struct Node{
+        int data;
+        Node *next;
+    };
+    Node *head;
+    List(){head = NULL;}
+    void insertList(int insdata){
+        Node *ins = new Node;
+        ins->data = insdata;
+        Node *curr = head;
+        if(head==NULL){
+            head = ins;
+            ins->next=NULL;
+        }else{
+            while(curr->next!=NULL){
+                curr=curr->next;
+            }
+            curr->next = ins;
+            ins->next=NULL;
+        }
+    }
+
+    void deleteList(int deldata){
+        Node *curr = head;
+        Node *preptr;
+        if(curr->data==deldata){
+            head = curr->next;
+            delete curr;
+        }else{
+            while(curr->data!=deldata&&curr->next!=NULL){
+            preptr = curr;
+            curr=curr->next;
+            }
+            if(curr->data==deldata){
+                preptr->next = curr->next;
+                delete curr;
+            }
+        }
+
+    }
+
+    void printList(){
+        Node *curr = head;
+        while(curr!=NULL){
+            cout<<curr->data<<" ";
+            curr=curr->next;
+        }
+        cout<<endl;
+    }
+};
+
+int main(){
+    List A;
+    A.insertList(2);
+    A.insertList(3);
+    A.printList();
+    A.deleteList(2);
+    A.printList();
+
+}
